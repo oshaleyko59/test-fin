@@ -35,21 +35,16 @@ export default function Home() {
             </Text>
           </SkeletonText>
           <Skeleton isLoaded={true}>
-            <iframe
+{/*             <iframe
               src="https://giphy.com/embed/HPXmHjGqCQCg8"
               width="480"
               height="255"
               frameBorder="0"
               title="Choose your car"
-            />
+            /> */}
           </Skeleton>
         </Flex>
       </SkeletonText>
     </div>
   );
 }
-/* <iframe src="https://giphy.com/embed/HPXmHjGqCQCg8" width="480" height="255" frameBorder="0" class="giphy-embed" allowFullScreen>
-</iframe>
-<p>
-<a href="https://giphy.com/gifs/fast-and-furious-7-HPXmHjGqCQCg8">via GIPHY</a></p>
-*/

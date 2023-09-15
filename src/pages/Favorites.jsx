@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import COLORS from 'constants/colors';
 
-export default function SavedAdverts() {
+export default function Favorites() {
 
   return (
     <div>

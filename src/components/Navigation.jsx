@@ -1,30 +1,48 @@
 import { NavLink } from 'react-router-dom';
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Button } from '@chakra-ui/react';
 //import Proptypes from 'prop-types';
 
 import COLORS from 'constants/colors';
 
-const getStyle = ({ isActive, isPending }) => {
+const getStyle = ({ isActive, isPending }) => { //FIXME:
   return {
     color: isPending ? 'red' : isActive ? 'gray' : `${COLORS.blue}`,
   };
 };
 
-const Navigation = () => {
+const getColor = ({ isActive, isPending }) => {
+  //FIXME:
+  return (!!isPending ? 'red' : !!isActive ? 'gray' : `${COLORS.blue}`);
+};
+
+const Navigation = ({onClick}) => {
   return (
-    <Flex gap="10" alignItems="center">
+    <Flex
+      direction="column"
+      as="nav"
+      gap="10"
+      minWidth="max-content"
+      justifyContent="flex-start"
+      alignItems="flex-start"
+    >
       <NavLink to="/" style={getStyle}>
-        <Text fontSize="20px">Home</Text>
+        <Button variant="ghost" colorScheme={getColor} onClick={onClick}>
+          <Text fontSize="20px">Home</Text>
+        </Button>
       </NavLink>
-      <NavLink to="/adverts" style={getStyle} end>
-        <Text fontSize="20px" alignSelf="flex-end">
-          Catalogue
-        </Text>
+      <NavLink to="/catalog" style={getStyle} end>
+        <Button variant="ghost" colorScheme={getColor} onClick={onClick}>
+          <Text fontSize="20px" alignSelf="flex-end">
+            Catalogue
+          </Text>
+        </Button>
       </NavLink>
-      <NavLink to="/saved-adverts" style={getStyle} end>
-        <Text fontSize="20px" alignSelf="flex-end">
-          Saved Adverts
-        </Text>
+      <NavLink to="/favorites" style={getStyle} end>
+        <Button variant="ghost" colorScheme={getColor} onClick={onClick}>
+          <Text fontSize="20px" alignSelf="flex-end">
+            Favorites
+          </Text>
+        </Button>
       </NavLink>
     </Flex>
   );
