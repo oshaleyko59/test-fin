@@ -9,7 +9,7 @@ export default function VLine() {
       viewBox="0 0 2 16"
       fill="none"
     >
-      <path d="M1 0V16" stroke={COLORS.black} stroke-opacity="0.1" />
+      <path d="M1 0V16" stroke={COLORS.black} strokeOpacity="0.1" />
     </svg>
   );
 }

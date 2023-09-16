@@ -20,13 +20,13 @@ const SharedLayout = () => {
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   return (
-    <VStack ml="auto" mr="auto" minWidth="max-content">
+    <VStack ml="160px" mr="0px" maxWidth="1440px">
       <Sidebar
         variant={variants?.navigation}
         isOpen={isSidebarOpen}
         onClose={toggleSidebar}
       />
-      <Box ml={!variants?.navigationButton && 200}>
+      <Box>
         <Header
           showSidebarButton={variants?.navigationButton}
           onShowSidebar={toggleSidebar}
@@ -40,5 +40,6 @@ const SharedLayout = () => {
   );
 };
 
+// <Box ml={!variants?.navigationButton && '10px'}>
 export default SharedLayout;
 //  {isLoggedIn ? <UserMenu /> : <NavigationAuth />}

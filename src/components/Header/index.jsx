@@ -1,14 +1,12 @@
 import { Flex, Text, Box, IconButton } from '@chakra-ui/react';
 import { FiChevronRight } from 'react-icons/fi';
 //import Proptypes from 'prop-types';
-
-import Filter from 'components/Filter';
 //import COLORS from 'constants/colors';
-
-export default function Header ({ showSidebarButton = true, onShowSidebar })  {
+//   <Box flex="1">
+export default function Header ({ showSidebarButton = true, onShowSidebar, children })  {
   return (
-    <Flex as="header" gap="10" alignItems="center">
-      <Box flex="1">
+    <Flex as="header" gap="10" justifyContent='flex-start' alignItems="center" minHeight='74px'>
+      <Box >
         {showSidebarButton && (
           <IconButton
             icon={<FiChevronRight w={8} h={8} />}
@@ -19,7 +17,7 @@ export default function Header ({ showSidebarButton = true, onShowSidebar })  {
         )}
       </Box>
       <Text>TODO:</Text>
-      <Filter />
+      {children}
     </Flex>
   );
 };

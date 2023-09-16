@@ -1,20 +1,16 @@
 
-import  AdvertsListItem  from 'components/Advert/AdvertCard';
-import { List, Box } from '@chakra-ui/react';
+import AdvertCard from 'components/Advert/AdvertCard';
+import { Grid, GridItem } from '@chakra-ui/react';
 
-export default function  AdvertsList (visibleAds) {
+export default function  AdvertsList ({list}) {
+  console.log('visibleAds>>>', list);
 
   return (
-    <Box>
-      {visibleAds && (
-        <List spacing={3}>
-          {visibleAds.map(ad => (
-            <li key={ad.id}>
-              <AdvertsListItem advert={ad} />
-            </li>
-          ))}
-        </List>
-      )}
-    </Box>
+    <Grid width="full" templateColumns="repeat(4, 1fr)">
+      {!!list && list.map(ad => <GridItem key={ad.id}>
+        <AdvertCard ad={ad} />
+      </GridItem>)}
+    </Grid>
   );
 };
+
