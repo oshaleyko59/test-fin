@@ -15,7 +15,7 @@ export default function MainButton({ onClick, children }) {
       _hover={{
         background: `${COLORS.bgDarkBlue}`,
       }}
-      p="4px"
+      px="44px" py="14px"
     >
       {children}
     </Button>

@@ -12,8 +12,6 @@ export default function Catalogue() {
   const [isMore, setIsMore] = useState(true);
   const endOfListRef = useRef(null);
 
-  // function onChangeFilter() {}
-
   function handleLoadMore() {
     if (isMore) {
       setPage(page + 1);

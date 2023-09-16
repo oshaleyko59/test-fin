@@ -7,7 +7,7 @@ import {
   Skeleton,
 } from '@chakra-ui/react';
 import COLORS from 'constants/colors';
-
+import TEST from 'components/TEST';
 export default function Home() {
 
   return (
@@ -34,6 +34,7 @@ export default function Home() {
               TODO:
             </Text>
           </SkeletonText>
+          <TEST/>
           <Skeleton isLoaded={true}>
 {/*             <iframe
               src="https://giphy.com/embed/HPXmHjGqCQCg8"

@@ -1,5 +1,6 @@
-import { Flex, Text, Box, IconButton } from '@chakra-ui/react';
+import { Flex, Box, IconButton } from '@chakra-ui/react';
 import { FiChevronRight } from 'react-icons/fi';
+
 //import Proptypes from 'prop-types';
 //import COLORS from 'constants/colors';
 //   <Box flex="1">
@@ -16,7 +17,6 @@ export default function Header ({ showSidebarButton = true, onShowSidebar, child
           />
         )}
       </Box>
-      <Text>TODO:</Text>
       {children}
     </Flex>
   );

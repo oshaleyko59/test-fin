@@ -3,11 +3,9 @@ import { Outlet } from 'react-router-dom';
 import { Box, VStack, useBreakpointValue } from '@chakra-ui/react';
 
 import Sidebar from '../SideBar';
+import Filter from 'components/Filter/Filter';
 import Loading from '../Loading';
 
-//import { UserMenu } from './UserMenu';
-
-//import COLORS from 'constants/colors';
 import Header from 'components/Header';
 
 const smVariant = { navigation: 'drawer', navigationButton: true };
@@ -30,7 +28,9 @@ const SharedLayout = () => {
         <Header
           showSidebarButton={variants?.navigationButton}
           onShowSidebar={toggleSidebar}
-        />
+        >
+          <Filter/>
+        </Header>
 
         <Suspense fallback={<Loading isLoading loadingText="Loading..." />}>
           <Outlet />
@@ -40,6 +40,5 @@ const SharedLayout = () => {
   );
 };
 
-// <Box ml={!variants?.navigationButton && '10px'}>
 export default SharedLayout;
-//  {isLoggedIn ? <UserMenu /> : <NavigationAuth />}
+

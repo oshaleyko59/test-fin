@@ -3,7 +3,6 @@ import {
   Drawer,
   DrawerOverlay,
   DrawerCloseButton,
-  //DrawerHeader,
   DrawerBody,
   DrawerContent,
   VStack,
@@ -16,7 +15,7 @@ const SidebarContent = ({ onClick }) => (
     <Navigation onClick={onClick} />
   </VStack>
 );
-// <DrawerHeader></DrawerHeader> TODO: LOGO
+
 const Sidebar = ({ isOpen, variant, onClose }) => {
   return variant === 'sidebar' ? (
     <Box
