@@ -22,10 +22,10 @@ const Sidebar = ({ isOpen, variant, onClose }) => {
       position="fixed"
       left={0}
       p={5}
-      w="200px"
+      w="160px"
       top={0}
       h="100%"
-      bg="#dfdfdf"
+      bg="lightblue"
     >
       <SidebarContent onClick={onClose} />
     </Box>

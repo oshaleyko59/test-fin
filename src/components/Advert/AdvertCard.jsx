@@ -1,5 +1,4 @@
 //import PropTypes from 'prop-types';
-//import { useDispatch } from 'react-redux';
 import {
   Text,
   VStack,
@@ -7,23 +6,35 @@ import {
   Box,
   HStack,
   Flex,
-  IconButton,
   Button,
+  useDisclosure,
+  Modal,
+  ModalBody,
+  ModalOverlay,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
 } from '@chakra-ui/react';
 import useLocalStorageState from 'use-local-storage-state';
-//import { CloseIcon } from 'icons/CloseIcon';
 import { FiHeart } from 'react-icons/fi';
 
 import Name from './Name';
 import MainButton from '../MainButton';
 import COLORS from 'constants/colors';
 import VLine from 'icons/VLine';
+import AdModalBody from 'components/Modal/AdModalBody';
+import getCityCountry from 'helpers/getCityCountry';
+import getPremium from 'helpers/getPremium';
 
 export default function AdvertCard({ ad, onClick }) {
   const [favorites, setFavorites] = useLocalStorageState('favAds', {
     defaultValue: [],
   });
-  const { id, make, model, year, mileage, rentalCompany, type } = ad;
+  const { id, make, model, year, mileage, rentalCompany, type, accessories, functionalities } = ad;
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { city, country } = getCityCountry(ad.address);
+  const { isPremium, feature } = getPremium([...accessories, ...functionalities]);
 
   function handleClick() {
     console.log('favorites.indexOf(id)>>>>', favorites.indexOf(id));
@@ -39,8 +50,6 @@ export default function AdvertCard({ ad, onClick }) {
     return favorites.includes(id);
   }
 
-  //TODO: background image to Box ??? #12141780  h="426px"
-  //background: linear-gradient(180deg, rgba(18, 20, 23, 0.50) 2.5%, rgba(18, 20, 23, 0.00) 41.07%), url(<path-to-image>), lightgray 50% / cover no-repeat;
   return (
     <Box w="274px" marginBottom="50px" marginRight="29px">
       <Stack w="full" align-items="flex-start" gap="28px" flexShrink={0}>
@@ -75,30 +84,69 @@ export default function AdvertCard({ ad, onClick }) {
             </HStack>
             <VStack gap="4px">
               <HStack gap="3px" justifyContent="flex-start" flexGrow={1}>
-                <Text textStyle="note">City</Text>
+                <Text textStyle="note">{city}</Text>
                 <VLine />
-                <Text textStyle="note">Country</Text>
+                <Text textStyle="note">{country}</Text>
                 <VLine />
-                <Text textStyle="note">{rentalCompany}</Text>
-                <VLine />
-                <Text textStyle="note">Premium</Text>
+                <Text textStyle="note" noOfLines={1}>
+                  {rentalCompany}
+                </Text>
+                {isPremium && <VLine />}
+                {isPremium && <Text textStyle="note">Premium</Text>}
               </HStack>
               <HStack gap="3px" justifyContent="flex-start" flexGrow={1}>
                 <Text textStyle="note">{type}</Text>
                 <VLine />
-                <Text textStyle="note">{model}</Text>
+                <Text noOfLines={1} textStyle="note">
+                  {model}
+                </Text>
                 <VLine />
                 <Text textStyle="note">{mileage}</Text>
                 <VLine />
-                <Text textStyle="note">Feature</Text>
+                <Text noOfLines={1} textStyle="note">
+                  {isPremium ? feature : functionalities[0]}
+                </Text>
               </HStack>
             </VStack>
           </VStack>
         </VStack>
-        <MainButton onClick={() => onClick(id)}>
+        <MainButton onClick={onOpen}>
           <Text>Learn more</Text>
         </MainButton>
       </Stack>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent minWidth="fit-content" borderRadius="24px">
+          {/*<ModalHeader id="Selected car details">
+             <Box minHeight="1px" width="501px" background="lightblue"></Box>
+           </ModalHeader>*/}
+          <ModalCloseButton />
+          <ModalBody id="Detailed information of rental proposal" p="0px">
+            <AdModalBody ad={ad} />
+          </ModalBody>
+
+          <ModalFooter marginBottom="24px">
+            <Stack direction="row" justifyContent="flex-start">
+              <Box
+                as="a"
+                href="tel:+380730000000"
+                borderRadius="12px"
+                bg={COLORS.bgBlue}
+                color={COLORS.white}
+                fontWeight="600"
+                _hover={{
+                  background: `${COLORS.bgDarkBlue}`,
+                }}
+                px="50px"
+                py="12px"
+                alignSelf="start"
+              >
+                <Text lineHeight="20px">Call to rent</Text>
+              </Box>
+            </Stack>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }

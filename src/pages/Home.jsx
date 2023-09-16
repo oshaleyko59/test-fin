@@ -27,7 +27,7 @@ export default function Home() {
             <Box w={[300, 400, 500]}>
               <Text fontSize="24px" color={COLORS.black}>
                 Here you can select a your ideal car for rent on the basis of
-                your personal preference in make, price, milage etc.
+                your personal preference in make, price per day, mileage etc.
               </Text>
             </Box>
             <Text my="16px" fontSize="20px" color={COLORS.black}>

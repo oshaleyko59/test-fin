@@ -11,12 +11,10 @@ import COLORS from 'constants/colors';
 
 const CarBrand = ({ value, onChange }) => {
   return (
-    <Box colorScheme="messenger">
+    <Box>
       <FormControl variant="floating" id="brand" colorScheme="messenger">
-        <FormLabel for="brand" color={COLORS.grey}>
-          Car brand
-        </FormLabel>
-        <Input placeholder=" " colorScheme="messenger" />
+        <FormLabel color={COLORS.grey}>Car brand</FormLabel>
+        <Input placeholder="" colorScheme="messenger" />
         {/* FIXME: ???  It is important that the Label comes after the Control due to css selectors */}
       </FormControl>
     </Box>

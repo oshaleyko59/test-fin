@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
-import { Stack, Button } from '@chakra-ui/react';
+import { Stack, Button, Container } from '@chakra-ui/react';
 
+import Filter from 'components/Filter/Filter';
 import AdvertsList from 'components/AdvertsList';
 import Loading from 'components/Loading';
 import apiAdverts from 'api/adverts';
@@ -56,13 +57,14 @@ export default function Catalogue() {
   //console.log('>>>page', page);
 
   return (
-    <>
-      <Stack as="main" w="full">
+    <Container as="main" w="full"  maxWidth="1440px">
+      <Stack >
         {isBusy ? (
           <Loading isLoading loadingText="... Loading data" />
         ) : (
           visibleAds?.length && (
             <>
+              <Filter />
               <AdvertsList list={visibleAds} />
               {isMore && (
                 <Button
@@ -80,6 +82,30 @@ export default function Catalogue() {
           )
         )}
       </Stack>
-    </>
+    </Container>
   );
 }
+/*
+        {isBusy ? (
+          <Loading isLoading loadingText="... Loading data" />
+        ) : (
+          visibleAds?.length && (
+            <>
+              <Filter />
+              <AdvertsList list={visibleAds} />
+              {isMore && (
+                <Button
+                  onClick={handleLoadMore}
+                  variant="ghost"
+                  colorScheme="messenger"
+                  mt="50px"
+                  mb="150px"
+                >
+                  Load more
+                </Button>
+              )}
+              <div ref={endOfListRef} />
+            </>
+          )
+        )}
+ */
