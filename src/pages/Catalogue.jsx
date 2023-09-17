@@ -27,10 +27,11 @@ export default function Catalogue() {
   useEffect(() => {
     async function getData() {
       let data;
+      const make = searchParams.getAll('make');
       try {
-        if (searchParams) {
+        if (make.length!==0) {
           data = await apiAdverts.getFiltered({
-            make: searchParams.getAll('make'),
+           make
           });
           setVisibleAds(data);
         }else{
@@ -42,7 +43,9 @@ export default function Catalogue() {
             setVisibleAds(visibleAds => [...visibleAds, ...data]);
           }
         }
-        setIsMore(data?.length === 8);}
+          setIsMore(data?.length === 8);
+        }
+
       } catch (err) {
         console.error('getAll>>>', err);
       }
