@@ -1,6 +1,6 @@
 import { Suspense, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Box, VStack, useBreakpointValue } from '@chakra-ui/react';
+import { Box, VStack, Container, useBreakpointValue } from '@chakra-ui/react';
 
 import Sidebar from '../SideBar';
 import Loading from '../Loading';
@@ -15,7 +15,7 @@ const SharedLayout = () => {
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   return (
-    <VStack ml="160px" mr="0px" maxWidth="1440px">
+    <Container ml="160px" mr="0px" maxWidth="1440px">
       <Sidebar
         variant={variants?.navigation}
         isOpen={isSidebarOpen}
@@ -26,7 +26,7 @@ const SharedLayout = () => {
           <Outlet />
         </Suspense>
       </Box>
-    </VStack>
+    </Container>
   );
 };
 

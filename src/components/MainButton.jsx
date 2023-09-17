@@ -22,5 +22,3 @@ export default function MainButton({ onClick, children }) {
   );
 }
 
-//     height="20px"
-// <CloseIcon />

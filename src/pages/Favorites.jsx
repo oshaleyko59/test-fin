@@ -1,5 +1,12 @@
-import { useEffect, useState } from 'react';
-import { Grid, GridItem, Container, Box, Text } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import {
+  Grid,
+  GridItem,
+  Container,
+  Box,
+  Text,
+  Heading,
+} from '@chakra-ui/react';
 import useLocalStorageState from 'use-local-storage-state';
 
 import AdvertCard from 'components/Advert/AdvertCard';
@@ -12,34 +19,30 @@ export default function Favorites() {
   });
   const [favAds, setFavAds] = useState([]);
 
-/*   async function getAd(id) {
-    try {
-      const data = await apiAdverts.getById(id);
-      return data;
-    } catch (err) {
-      console.error('TODO: This advert is not available anymore...', err);
-    }
-  } */
-
   useEffect(() => {
-    async function getFavAds() {
-
-      //  apiAdverts.getListById(favorites).then(data => console.log('@FAV>>>', data));
-      /*     try {
-      const data = await;
-      console.log('getFavAds>>>>>', data);
-    } catch(err) {
-      console.error('TODO: This advert is not available anymore...', err)
-    } */
-    }
-
+    let ignore = false;
     setFavAds([]);
-    getFavAds();
-  }, [favorites]);
+    apiAdverts.getListById(favorites).then(data => {
+      if (!ignore) {
+        setFavAds(data);
+        if (data.length !== favorites.length) {
+          setFavorites([]);
+          const res = [];
+          data.forEach((el) => { res.push(el.id) });
+          setFavorites(res);
+        }
+      }
+    });
 
-  console.log('Favorites@FAV>>>>>', favorites);
+    return () => {
+      ignore = true;
+    };
+  }, [favorites, setFavorites]);
+
+  console.log('FavAdz@FAV>>>>>', favAds);
   return (
-    <Container maxWidth="1440px">
+    <Container py="60px" as="main" w="full" maxWidth="1440px">
+      <Heading mb="40px"> Your favorite adverts</Heading>
       <Grid width="full" templateColumns="repeat(4, 1fr)">
         {!!favAds ? (
           favAds.map(ad => (
@@ -50,7 +53,7 @@ export default function Favorites() {
         ) : (
           <Box w={[300, 400, 500]}>
             <Text fontSize="24px" color={COLORS.black}>
-              You don't have any favorite adverts yet...
+              You don't have any favorite yet...
             </Text>
           </Box>
         )}

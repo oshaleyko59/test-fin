@@ -26,7 +26,7 @@ import getCityCountry from 'helpers/getCityCountry';
 import getPremium from 'helpers/getPremium';
 import toDecCommaStr from 'helpers/toDecCommaStr';
 
-export default function AdvertCard({ ad, onClick }) {
+export default function AdvertCard({ ad }) {
   const [favorites, setFavorites] = useLocalStorageState('favAds', {
     defaultValue: [],
   });
@@ -42,7 +42,6 @@ export default function AdvertCard({ ad, onClick }) {
     } else {
       setFavorites([...favorites, id]);
     }
-    onClick(id);
   }
 
   function isFavorite() {
@@ -146,31 +145,4 @@ export default function AdvertCard({ ad, onClick }) {
   );
 }
 
-/*
-background={`linear-gradient(180deg, rgba(18, 20, 23, 0.50) 2.5%, rgba(18, 20, 23, 0.00) 41.07%), url(${ad.img}), lightblue 10% / cover`}
 
-
-              <HStack gap="4px" justifyContent="flex-start" flexGrow={1}>
-                <Text textStyle="note">City</Text>
-                <VLine />
-                <Text textStyle="note">Country</Text>
-                <VLine />
-                <Text textStyle="note">{rentalCompany}</Text>
-                <VLine />
-                <Text textStyle="note">Premium</Text>
-              </HStack>
-<Divider orientation="vertical" />
-w=274 h=268 borderRadius=14
-        <ListIcon as={LiIcon} />
-
-        <Text as="a" href={'tel:' + contact.number}>
-              {contact.number}
-            </Text>
-*/
-/* ContactListItem.propTypes = {
-  contact: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string,
-  }).isRequired,
-}; */

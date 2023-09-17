@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { Stack, Button, Container } from '@chakra-ui/react';
 
 import Filter from 'components/Filter/Filter';

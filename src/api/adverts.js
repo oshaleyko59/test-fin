@@ -1,8 +1,6 @@
 import axios from 'axios';
 import BASE_URL from 'constants/baseURL';
 
-//axios.defaults.baseURL = BASE_URL;
-
 const getAll = async page => {
   const url = new URL(BASE_URL);
   url.searchParams.append('page', page);
@@ -16,18 +14,19 @@ const getById = async advertId => {
   return data;
 };
 
-const getListById = async list => {
-  console.log('getListById>>>list', list);
-  const { data } = await Promise.all(
-    list.map(id => {
-      console.log('getListById>>>id', `${BASE_URL}/${id}`);
-      return axios.get(`${BASE_URL}/${id}`);
-    })
-  );
-  //   .then(data => console.log(data));
-  // console.log('getListById>>>data', data);
-  return data;
+const getListById = async (list) => {
+  const results = await Promise.allSettled(list.map(id => axios.get(`${BASE_URL}/${id}`)));
+  const resData = [];
+  for (const result of results) {
+    if (result.status === 'fulfilled') {
+      const data = await result.value.data;
+      resData.push(data);
+    }
+  }
+
+  return resData;
 };
+
 
 const getFiltered = async ({ make, rentalPrice, mileage }) => {
   const { data } = await axios.get(
