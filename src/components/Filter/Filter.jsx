@@ -12,16 +12,19 @@ import makes from '../../assets/makes.json';
 import COLORS from 'constants/colors';
 import MainButton from 'components/MainButton';
 
-const Filter = ({ onSearchClick }) => {
+const Filter = () => {
   const navigate = useNavigate();
   const { register, handleSubmit, getValues } = useForm();
 
   const onSubmit = data => {
+    const make = getValues('brand');
+    if (!make) {
+      navigate('/catalog');
+      return;
+    }
 
-    const make = getValues("brand");
-    onSearchClick({make});
     const navstr = `/catalog?make=${make}`;
-   navigate(navstr);
+    navigate(navstr);
   };
 
   return (

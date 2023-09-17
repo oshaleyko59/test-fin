@@ -24,7 +24,6 @@ const getListById = async (list) => {
 
 
 const getFiltered = async ({ make }) => {
-  console.log('getFiltered>>>', make);
   const url = new URL(BASE_URL);
   url.searchParams.append('make', make);
   const { data } = await axios.get(url);

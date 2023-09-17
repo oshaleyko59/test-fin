@@ -16,6 +16,3 @@ const COLORS = {
   bgDarkBlue: '#0B44CD',
 };
 export default COLORS;
-
-
-//TODO: ??? image background: linear-gradient(180deg, rgba(18, 20, 23, 0.50) 2.5%, rgba(18, 20, 23, 0.00) 41.07%), url(<path-to-image>), lightgray 50% / cover no-repeat;

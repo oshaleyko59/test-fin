@@ -1,5 +1,4 @@
 import { Button, Flex } from '@chakra-ui/react';
-//import PropTypes from 'prop-types';
 
 const Loading = ({ loadingText, isLoading }) => {
   return (
@@ -18,8 +17,4 @@ const Loading = ({ loadingText, isLoading }) => {
 
 export default Loading;
 
-/* Loading.propTypes = {
-  contact: PropTypes.shape({
-    isLoading: PropTypes.bool,
-  }),
-}; */
+

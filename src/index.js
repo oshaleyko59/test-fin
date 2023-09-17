@@ -32,7 +32,6 @@ const theme = extendTheme({
       fontSize: '12px',
       fontWeight: 400,
       lineHeight: '18px',
-  //  letterSpacing:'-0.5px'
     },
 
     h2: {

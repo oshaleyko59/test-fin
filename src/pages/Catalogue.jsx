@@ -24,10 +24,6 @@ export default function Catalogue() {
     }
   }
 
-  function doSearch(params) {
-    console.log('doSearch>>>>', params.make);
-  }
-
   useEffect(() => {
     async function getData() {
       let data;
@@ -36,7 +32,6 @@ export default function Catalogue() {
           data = await apiAdverts.getFiltered({
             make: searchParams.getAll('make'),
           });
-          console.log('searchParams>>>', data);
           setVisibleAds(data);
         }else{
         data = await apiAdverts.getAll(page);
@@ -48,9 +43,6 @@ export default function Catalogue() {
           }
         }
         setIsMore(data?.length === 8);}
-
-        console.log('endOfListRef>>>', endOfListRef?.current);
-        console.log('data>>>length', data.length);
       } catch (err) {
         console.error('getAll>>>', err);
       }
@@ -63,7 +55,6 @@ export default function Catalogue() {
     }
   }, [page, isMore, searchParams]);
 
-  console.log("searchParams>>>", searchParams.getAll("make"))
   return (
     <Container as="main" w="full" maxWidth="1440px">
       <Stack>
@@ -72,7 +63,7 @@ export default function Catalogue() {
         ) : (
           visibleAds?.length && (
             <>
-                <Filter onSearchClick={doSearch} />
+                <Filter/>
               <AdvertsList list={visibleAds} />
               {isMore && (
                 <Button

@@ -1,17 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import { Flex, Text, Button } from '@chakra-ui/react';
-//import Proptypes from 'prop-types';
 
 import COLORS from 'constants/colors';
 
-const getStyle = ({ isActive, isPending }) => { //FIXME:
+const getStyle = ({ isActive, isPending }) => {
   return {
     color: isPending ? 'red' : isActive ? 'gray' : `${COLORS.blue}`,
   };
 };
 
 const getColor = ({ isActive, isPending }) => {
-  //FIXME:
   return (!!isPending ? 'red' : !!isActive ? 'gray' : `${COLORS.blue}`);
 };
 
@@ -50,7 +48,4 @@ const Navigation = ({onClick}) => {
 
 export default Navigation;
 
-/* Navigation.propTypes = {
-  showPrivate: Proptypes.bool,
-};
- */
+

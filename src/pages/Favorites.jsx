@@ -39,7 +39,6 @@ export default function Favorites() {
     };
   }, [favorites, setFavorites]);
 
-  console.log('FavAdz@FAV>>>>>', favAds);
   return (
     <Container py="60px" as="main" w="full" maxWidth="1440px">
       <Heading mb="40px"> Your favorite adverts</Heading>

@@ -9,7 +9,6 @@ import {
 
 import COLORS from 'constants/colors';
 export default function Home() {
-
   return (
     <div>
       <SkeletonText isLoaded={true}>
@@ -26,19 +25,19 @@ export default function Home() {
             </Heading>
             <Box w={[300, 400, 500]} mb="40px">
               <Text fontSize="24px" color={COLORS.black}>
-                Here you can select your ideal car for rent on the basis of
-                your personal preference in make, price per day, mileage etc.
+                Here you can select your ideal car for rent on the basis of your
+                personal preference in make, price per day, mileage etc.
               </Text>
             </Box>
           </SkeletonText>
           <Skeleton isLoaded={true}>
-{/*   //FIXME:          <iframe
+            <iframe
               src="https://giphy.com/embed/HPXmHjGqCQCg8"
               width="480"
               height="255"
               frameBorder="0"
               title="Choose your car"
-            /> */}
+            />
           </Skeleton>
         </Flex>
       </SkeletonText>
