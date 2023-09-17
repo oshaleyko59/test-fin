@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Stack, Button, Container } from '@chakra-ui/react';
 
 import Filter from 'components/Filter/Filter';
@@ -8,6 +8,8 @@ import Loading from 'components/Loading';
 import apiAdverts from 'api/adverts';
 
 export default function Catalogue() {
+  let [searchParams] = useSearchParams();
+
   const [visibleAds, setVisibleAds] = useState([]);
   const [isBusy, setIsBusy] = useState(false);
   const [page, setPage] = useState(1);
@@ -22,10 +24,22 @@ export default function Catalogue() {
     }
   }
 
+  function doSearch(params) {
+    console.log('doSearch>>>>', params.make);
+  }
+
   useEffect(() => {
     async function getData() {
+      let data;
       try {
-        const data = await apiAdverts.getAll(page);
+        if (searchParams) {
+          data = await apiAdverts.getFiltered({
+            make: searchParams.getAll('make'),
+          });
+          console.log('searchParams>>>', data);
+          setVisibleAds(data);
+        }else{
+        data = await apiAdverts.getAll(page);
         if (page === 1) {
           setVisibleAds(data);
         } else {
@@ -33,9 +47,8 @@ export default function Catalogue() {
             setVisibleAds(visibleAds => [...visibleAds, ...data]);
           }
         }
-        setIsMore(data?.length === 8);
+        setIsMore(data?.length === 8);}
 
-        endOfListRef?.current?.scrollIntoView(); // FIXME: ???
         console.log('endOfListRef>>>', endOfListRef?.current);
         console.log('data>>>length', data.length);
       } catch (err) {
@@ -48,17 +61,18 @@ export default function Catalogue() {
       setIsBusy(true);
       getData();
     }
-  }, [page, isMore]);
+  }, [page, isMore, searchParams]);
 
+  console.log("searchParams>>>", searchParams.getAll("make"))
   return (
-    <Container as="main" w="full"  maxWidth="1440px">
-      <Stack >
+    <Container as="main" w="full" maxWidth="1440px">
+      <Stack>
         {isBusy ? (
           <Loading isLoading loadingText="... Loading data" />
         ) : (
           visibleAds?.length && (
             <>
-              <Filter />
+                <Filter onSearchClick={doSearch} />
               <AdvertsList list={visibleAds} />
               {isMore && (
                 <Button
@@ -79,27 +93,3 @@ export default function Catalogue() {
     </Container>
   );
 }
-/*
-        {isBusy ? (
-          <Loading isLoading loadingText="... Loading data" />
-        ) : (
-          visibleAds?.length && (
-            <>
-              <Filter />
-              <AdvertsList list={visibleAds} />
-              {isMore && (
-                <Button
-                  onClick={handleLoadMore}
-                  variant="ghost"
-                  colorScheme="messenger"
-                  mt="50px"
-                  mb="150px"
-                >
-                  Load more
-                </Button>
-              )}
-              <div ref={endOfListRef} />
-            </>
-          )
-        )}
- */

@@ -9,11 +9,6 @@ const getAll = async page => {
   return data;
 };
 
-const getById = async advertId => {
-  const { data } = await axios.get(`${BASE_URL}/${advertId}`);
-  return data;
-};
-
 const getListById = async (list) => {
   const results = await Promise.allSettled(list.map(id => axios.get(`${BASE_URL}/${id}`)));
   const resData = [];
@@ -28,13 +23,14 @@ const getListById = async (list) => {
 };
 
 
-const getFiltered = async ({ make, rentalPrice, mileage }) => {
-  const { data } = await axios.get(
-    `?make=${make}&rentalPrice<${rentalPrice}&mileage=${mileage}`
-  );
+const getFiltered = async ({ make }) => {
+  console.log('getFiltered>>>', make);
+  const url = new URL(BASE_URL);
+  url.searchParams.append('make', make);
+  const { data } = await axios.get(url);
   return data;
 };
 
-const apiAdverts = { getAll, getListById, getById, getFiltered };
+const apiAdverts = { getAll, getListById, getFiltered };
 
 export default apiAdverts;

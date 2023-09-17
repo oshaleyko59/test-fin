@@ -1,6 +1,6 @@
 import { Suspense, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Box, VStack, Container, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Container, useBreakpointValue } from '@chakra-ui/react';
 
 import Sidebar from '../SideBar';
 import Loading from '../Loading';
@@ -32,11 +32,3 @@ const SharedLayout = () => {
 
 export default SharedLayout;
 
-/*
-        <Header
-          showSidebarButton={variants?.navigationButton}
-          onShowSidebar={toggleSidebar}
-        >
-          <Filter/>
-        </Header>
-*/

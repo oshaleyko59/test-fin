@@ -4,18 +4,17 @@ import {
 
 import COLORS from 'constants/colors';
 
-export default function MainButton({ onClick, children }) {
-
+export default function MainButton({type='button', onClick, children }) {
   return (
-    <Button
-      type="button"
+    <Button type={type}
       variant="solid"
       onClick={onClick}
       colorScheme="messenger"
       _hover={{
         background: `${COLORS.bgDarkBlue}`,
       }}
-      px="44px" py="14px"
+      px="44px"
+      py="14px"
     >
       {children}
     </Button>

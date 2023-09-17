@@ -1,25 +1,53 @@
-import { useState } from 'react';
-import {  HStack } from '@chakra-ui/react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import {
+  HStack,
+  Container,
+  Select,
+  FormControl,
+  FormLabel,
+} from '@chakra-ui/react';
+
+import makes from '../../assets/makes.json';
+import COLORS from 'constants/colors';
 import MainButton from 'components/MainButton';
 
-import CarBrand from './CarBrand';
+const Filter = ({ onSearchClick }) => {
+  const navigate = useNavigate();
+  const { register, handleSubmit, getValues } = useForm();
 
+  const onSubmit = data => {
 
-const Filter = () => {
-  const [brand, setBrand] = useState('');
+    const make = getValues("brand");
+    onSearchClick({make});
+    const navstr = `/catalog?make=${make}`;
+   navigate(navstr);
+  };
 
-console.log('brand>>>>', brand)
   return (
-<HStack p="40px"  gap="20px" alignItems='end'>
-      <CarBrand value={brand} onChange={setBrand}/>
-      <MainButton>Search</MainButton>
-</HStack>
+    <Container as="form" p="40px" onSubmit={handleSubmit(onSubmit)}>
+      <HStack gap="20px" alignItems="end">
+        <FormControl
+          size="100px"
+          variant="floating"
+          id="brand"
+          colorScheme="messenger"
+        >
+          <FormLabel color={COLORS.grey}>Car brand</FormLabel>
+          <Select placeholder="All" name="Car brands" {...register('brand')}>
+            {makes.map((make, index) => {
+              return (
+                <option key={index} value={make}>
+                  {make}
+                </option>
+              );
+            })}
+          </Select>
+        </FormControl>
+        <MainButton type="submit">Search</MainButton>
+      </HStack>
+    </Container>
   );
 };
 
 export default Filter;
-
-/* Filter.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChangeFilter: PropTypes.func.isRequired,
-}; */
