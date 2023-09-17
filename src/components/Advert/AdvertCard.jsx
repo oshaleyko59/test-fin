@@ -1,4 +1,3 @@
-//import PropTypes from 'prop-types';
 import {
   Text,
   VStack,
@@ -25,6 +24,7 @@ import VLine from 'icons/VLine';
 import AdModalBody from 'components/Modal/AdModalBody';
 import getCityCountry from 'helpers/getCityCountry';
 import getPremium from 'helpers/getPremium';
+import toDecCommaStr from 'helpers/toDecCommaStr';
 
 export default function AdvertCard({ ad, onClick }) {
   const [favorites, setFavorites] = useLocalStorageState('favAds', {
@@ -37,7 +37,6 @@ export default function AdvertCard({ ad, onClick }) {
   const { isPremium, feature } = getPremium([...accessories, ...functionalities]);
 
   function handleClick() {
-    console.log('favorites.indexOf(id)>>>>', favorites.indexOf(id));
     if (isFavorite()) {
       setFavorites(favorites.toSpliced(favorites.indexOf(id), 1));
     } else {
@@ -101,7 +100,7 @@ export default function AdvertCard({ ad, onClick }) {
                   {model}
                 </Text>
                 <VLine />
-                <Text textStyle="note">{mileage}</Text>
+                <Text textStyle="note">{toDecCommaStr(mileage)}</Text>
                 <VLine />
                 <Text noOfLines={1} textStyle="note">
                   {isPremium ? feature : functionalities[0]}
@@ -117,14 +116,10 @@ export default function AdvertCard({ ad, onClick }) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent minWidth="fit-content" borderRadius="24px">
-          {/*<ModalHeader id="Selected car details">
-             <Box minHeight="1px" width="501px" background="lightblue"></Box>
-           </ModalHeader>*/}
           <ModalCloseButton />
           <ModalBody id="Detailed information of rental proposal" p="0px">
             <AdModalBody ad={ad} />
           </ModalBody>
-
           <ModalFooter marginBottom="24px">
             <Stack direction="row" justifyContent="flex-start">
               <Box

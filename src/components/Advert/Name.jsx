@@ -2,7 +2,7 @@ import {Text} from '@chakra-ui/react';
 import COLORS from 'constants/colors';
 
 export default function Name({ make, model, year, fs='16px' }) {
-//console.log(make, model, year);
+
   return (
     <Text color={COLORS.black} noOfLines={1} fontSize={fs}>
       <Text as="span">{make}</Text>

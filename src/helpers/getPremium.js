@@ -1,6 +1,5 @@
 
 function check(element) {
-console.log('???Premium???',element.toLowerCase().includes('premium'));
   return element.toLowerCase().includes('premium');
 }
 

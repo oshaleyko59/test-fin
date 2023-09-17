@@ -11,7 +11,7 @@ export function OnThePlate({ str }) {
 
 export default function Condition({ str }) {
   const cond = str.split('\n');
-//  console.log('split>>', cond);
+
   return (
     <Flex direction='row' wrap='wrap'gap='8px' >
       {!!cond && cond.map((item, index) => <OnThePlate key={ index} str={item} />)}

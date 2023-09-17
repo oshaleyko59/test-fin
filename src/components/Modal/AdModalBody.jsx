@@ -4,6 +4,8 @@ import VLine from 'icons/VLine';
 import Condition from './Condition';
 import COLORS from 'constants/colors';
 import getCityCountry from 'helpers/getCityCountry';
+import toDecCommaStr from 'helpers/toDecCommaStr';
+
 
 export default function AdModalBody({ ad }) {
   const {
@@ -23,13 +25,19 @@ export default function AdModalBody({ ad }) {
     rentalPrice, address
   } = ad;
   const { city, country } = getCityCountry(address);
-  //console.log('getCityCountry>>', city, country);
 
   return (
     <Box w="541px" px="40px" paddingTop="40px" paddingBottom="8px">
       <Stack w="full" align-items="flex-start" flexShrink={0}>
-        <Box w="461px" marginBottom="14px">
-          <Image w="full" src={img} borderRadius="14px" />
+        <Box w="461px"  marginBottom="14px" >
+          <Image
+            w="full"
+            h="232px"
+            src={img}
+            borderRadius="14px"
+            alt="Photo of the car"
+            background={COLORS.bgGrey1000}
+          />
         </Box>
         <Name make={make} model={model} year={year} fs="18px" />
         <HStack
@@ -94,7 +102,9 @@ export default function AdModalBody({ ad }) {
         Rental Conditions:
       </Text>
       <Condition
-        str={`${rentalConditions}\nMileage:${mileage}\nPrice:${rentalPrice}`}
+        str={`${rentalConditions}\nMileage:${toDecCommaStr(
+          mileage
+        )}\nPrice:${rentalPrice}`}
       />
     </Box>
   );

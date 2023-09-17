@@ -24,16 +24,12 @@ export default function Catalogue() {
   useEffect(() => {
     async function getData() {
       try {
-        console.log('data>>>page', page);
         const data = await apiAdverts.getAll(page);
         if (page === 1) {
           setVisibleAds(data);
         } else {
           if (data?.length) {
-            setVisibleAds(visibleAds => {
-              console.log('visibleAds>>>length', visibleAds.length);
-              return [...visibleAds, ...data];
-            });
+            setVisibleAds(visibleAds => [...visibleAds, ...data]);
           }
         }
         setIsMore(data?.length === 8);
@@ -52,9 +48,6 @@ export default function Catalogue() {
       getData();
     }
   }, [page, isMore]);
-
-  // console.log('isBusy>>>', isBusy);
-  //console.log('>>>page', page);
 
   return (
     <Container as="main" w="full"  maxWidth="1440px">

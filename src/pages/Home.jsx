@@ -22,21 +22,18 @@ export default function Home() {
         >
           <SkeletonText isLoaded={true}>
             <Heading py="24px" fontWeight="500" color={COLORS.black}>
-              Hello, TODO:!
+              Hello :)
             </Heading>
-            <Box w={[300, 400, 500]}>
+            <Box w={[300, 400, 500]} mb="40px">
               <Text fontSize="24px" color={COLORS.black}>
-                Here you can select a your ideal car for rent on the basis of
+                Here you can select your ideal car for rent on the basis of
                 your personal preference in make, price per day, mileage etc.
               </Text>
             </Box>
-            <Text my="16px" fontSize="20px" color={COLORS.black}>
-              TODO:
-            </Text>
           </SkeletonText>
           <TEST/>
           <Skeleton isLoaded={true}>
-{/*             <iframe
+{/*   //FIXME:          <iframe
               src="https://giphy.com/embed/HPXmHjGqCQCg8"
               width="480"
               height="255"
