@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState} from 'react';
 import { Stack, Button, Container } from '@chakra-ui/react';
 
 import Filter from 'components/Filter/Filter';
@@ -8,13 +7,11 @@ import Loading from 'components/Loading';
 import apiAdverts from 'api/adverts';
 
 export default function Catalogue() {
-  let [searchParams] = useSearchParams();
-
   const [visibleAds, setVisibleAds] = useState([]);
   const [isBusy, setIsBusy] = useState(false);
   const [page, setPage] = useState(1);
+  const [make, setMake] = useState("");
   const [isMore, setIsMore] = useState(true);
-  const endOfListRef = useRef(null);
 
   function handleLoadMore() {
     if (isMore) {
@@ -23,40 +20,36 @@ export default function Catalogue() {
       setPage(1);
     }
   }
+  function handleSubmit(make) {
+    setIsMore(true);
+    setPage(1);
+    setMake(make);
+  }
 
   useEffect(() => {
-    async function getData() {
-      let data;
-      const make = searchParams.getAll('make');
-      try {
-        if (make.length!==0) {
-          data = await apiAdverts.getFiltered({
-           make
-          });
-          setVisibleAds(data);
-        }else{
-        data = await apiAdverts.getAll(page);
-        if (page === 1) {
-          setVisibleAds(data);
-        } else {
-          if (data?.length) {
-            setVisibleAds(visibleAds => [...visibleAds, ...data]);
+        async function getData() {
+          try {
+            const data = await apiAdverts.getAll(page, make);
+            if (page === 1) {
+              setVisibleAds(data);
+            } else {
+              if (data?.length) {
+                setVisibleAds(visibleAds => [...visibleAds, ...data]);
+              }
+            }
+            setIsMore(data?.length === 8);
+          } catch (err) {
+            console.error('getAll>>>', err);
           }
-        }
-          setIsMore(data?.length === 8);
+          setIsBusy(false);
         }
 
-      } catch (err) {
-        console.error('getAll>>>', err);
-      }
-      setIsBusy(false);
-    }
+        if (isMore) {
+          setIsBusy(true);
+          getData();
+        }
 
-    if (isMore) {
-      setIsBusy(true);
-      getData();
-    }
-  }, [page, isMore, searchParams]);
+  }, [make, page, isMore]);
 
   return (
     <Container as="main" w="full" maxWidth="1440px">
@@ -66,7 +59,7 @@ export default function Catalogue() {
         ) : (
           visibleAds?.length && (
             <>
-                <Filter/>
+              <Filter value={make} onSubmitClick={handleSubmit}/>
               <AdvertsList list={visibleAds} />
               {isMore && (
                 <Button
@@ -79,7 +72,6 @@ export default function Catalogue() {
                   Load more
                 </Button>
               )}
-              <div ref={endOfListRef} />
             </>
           )
         )}

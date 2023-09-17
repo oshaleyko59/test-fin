@@ -12,17 +12,17 @@ import makes from '../../assets/makes.json';
 import COLORS from 'constants/colors';
 import MainButton from 'components/MainButton';
 
-const Filter = () => {
+const Filter = ({onSubmitClick, value}) => {
   const navigate = useNavigate();
   const { register, handleSubmit, getValues } = useForm();
 
   const onSubmit = data => {
     const make = getValues('brand');
+    onSubmitClick(make);
     if (!make) {
       navigate('/catalog');
       return;
     }
-
     const navstr = `/catalog?make=${make}`;
     navigate(navstr);
   };
@@ -37,7 +37,7 @@ const Filter = () => {
           colorScheme="messenger"
         >
           <FormLabel color={COLORS.grey}>Car brand</FormLabel>
-          <Select placeholder="All" name="Car brands" {...register('brand')}>
+          <Select  placeholder="All" name="Car brands" {...register('brand')}>
             {makes.map((make, index) => {
               return (
                 <option key={index} value={make}>

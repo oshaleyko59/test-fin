@@ -1,8 +1,11 @@
 import axios from 'axios';
 import BASE_URL from 'constants/baseURL';
 
-const getAll = async page => {
+const getAll = async (page, make )=> {
   const url = new URL(BASE_URL);
+  if (make) {
+    url.searchParams.append('make', make);
+  }
   url.searchParams.append('page', page);
   url.searchParams.append('limit', 8);
   const { data } = await axios.get(url);

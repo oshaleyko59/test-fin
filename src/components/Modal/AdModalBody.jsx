@@ -6,7 +6,6 @@ import COLORS from 'constants/colors';
 import getCityCountry from 'helpers/getCityCountry';
 import toDecCommaStr from 'helpers/toDecCommaStr';
 
-
 export default function AdModalBody({ ad }) {
   const {
     id,
@@ -22,23 +21,30 @@ export default function AdModalBody({ ad }) {
     accessories,
     functionalities,
     rentalConditions,
-    rentalPrice, address
+    rentalPrice,
+    address,
   } = ad;
   const { city, country } = getCityCountry(address);
 
   return (
     <Box w="541px" px="40px" paddingTop="40px" paddingBottom="8px">
       <Stack w="full" align-items="flex-start" flexShrink={0}>
-        <Box w="461px"  marginBottom="14px" >
+        <Flex
+          w="461px"
+          marginBottom="14px"
+          flexDirection="column"
+          alignItems="center"
+          backgroundColor={COLORS.bgGrey200}
+          borderRadius="14px"
+        >
           <Image
-            w="full"
             h="232px"
             src={img}
             borderRadius="14px"
             alt="Photo of the car"
             background={COLORS.bgGrey1000}
           />
-        </Box>
+        </Flex>
         <Name make={make} model={model} year={year} fs="18px" />
         <HStack
           marginTop="8px"
@@ -109,4 +115,3 @@ export default function AdModalBody({ ad }) {
     </Box>
   );
 }
-
