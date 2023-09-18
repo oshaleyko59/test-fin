@@ -1,7 +1,7 @@
 import axios from 'axios';
 import BASE_URL from 'constants/baseURL';
 
-const getAll = async (page, make )=> {
+const getAll = async (page, make) => {
   const url = new URL(BASE_URL);
   if (make) {
     url.searchParams.append('make', make);

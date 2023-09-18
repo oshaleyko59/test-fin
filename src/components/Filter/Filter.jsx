@@ -12,7 +12,7 @@ import makes from '../../assets/makes.json';
 import COLORS from 'constants/colors';
 import MainButton from 'components/MainButton';
 
-const Filter = ({onSubmitClick, value}) => {
+const Filter = ({onSubmitClick}) => {
   const navigate = useNavigate();
   const { register, handleSubmit, getValues } = useForm();
 

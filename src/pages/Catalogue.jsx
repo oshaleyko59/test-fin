@@ -1,6 +1,13 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Stack, Button, Container } from '@chakra-ui/react';
+import {
+  Stack,
+  Button,
+  Container,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+} from '@chakra-ui/react';
 
 import Filter from 'components/Filter/Filter';
 import AdvertsList from 'components/AdvertsList';
@@ -15,7 +22,6 @@ export default function Catalogue() {
   const [visibleAds, setVisibleAds] = useState([]);
   const [isBusy, setIsBusy] = useState(false);
   const [page, setPage] = useState(1);
-  const [make, setMake] = useState('');
   const [isMore, setIsMore] = useState(true);
 
   function handleLoadMore() {
@@ -39,10 +45,10 @@ export default function Catalogue() {
         }
       }
       setIsMore(data?.length === 8);
+      if (data.length === 0) { setError(`No adverts found on the query <${query}>`) };
     } catch (err) {
       setVisibleAds([]);
       setError(err);
-      console.error('getAll>>>', err);
     }
     setIsBusy(false);
   }, [query, page]);
@@ -55,12 +61,9 @@ export default function Catalogue() {
     }
 
     setSearchParams({ query });
-
-    setMake(query); //TODO:
   }
 
   useEffect(() => {
-
     if (isMore) {
       setIsBusy(true);
       fetchData();
@@ -70,12 +73,28 @@ export default function Catalogue() {
   return (
     <Container as="main" w="full" maxWidth="1440px">
       <Stack>
+        <Filter  onSubmitClick={handleSubmit} />
+        {error && (
+          <Alert
+            status="error"
+            variant="subtle"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            textAlign="center"
+            height="200px"
+          >
+            <AlertIcon boxSize="40px" mr={0} />
+            <AlertTitle mt={4} mb={1} fontSize="lg">
+              {error}
+            </AlertTitle>
+          </Alert>
+        )}
         {isBusy ? (
           <Loading isLoading loadingText="... Loading data" />
         ) : (
           visibleAds?.length && (
             <>
-              <Filter value={make} onSubmitClick={handleSubmit} />
               <AdvertsList list={visibleAds} />
               {isMore && (
                 <Button
